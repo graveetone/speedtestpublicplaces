@@ -30,9 +30,10 @@ function PlacesList() {
             })
     }, [])
 
+    const centeredStyle = {display: 'flex', alignItems: 'center', flexDirection: 'column'}
     const tableStyle = { border: "1px solid black" }
 
-    const loadingSection = <div style={ {display: 'flex', justifyContent: 'center'} }>Loading...</div>
+    const loadingSection = <div style={ centeredStyle }>Loading...</div>
     const placesSection = (
         <table style={tableStyle}>
             <thead>
