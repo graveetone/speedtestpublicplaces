@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from "react-dom/client";
 
-function renderPlacesPage(body) {
+function renderPlacesPage(body, onSearchTextChanged) {
     return (
         <div className="bg-white p-8 rounded-md w-full">
             <div className=" flex items-center justify-between pb-6">
@@ -12,11 +12,11 @@ function renderPlacesPage(body) {
                     <div className="flex bg-gray-50 items-center p-2 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-400" viewBox="0 0 20 20"
                             fill="currentColor">
-                            <path fill-rule="evenodd"
+                            <path fillRule="evenodd"
                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clip-rule="evenodd" />
+                                clipRule="evenodd" />
                         </svg>
-                        <input className="bg-grey-50 ml-1 block " type="text" name="" id="" placeholder="search..." />
+                        <input onChange={onSearchTextChanged} className="bg-grey-50 ml-1 block " type="text" name="" id="" placeholder="search..." />
                     </div>
                     <div className="lg:ml-40 ml-10 space-x-8">
                         <button className="bg-red-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Add place</button>
@@ -32,15 +32,22 @@ function renderPlacesPage(body) {
 function PlacesList() {
     const [isLoading, setLoading] = useState(true);
     const [loadedPlaces, setLoadedPlaces] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
-        fetch('api/v1/places')
+        const endpoint = searchTerm === '' ? '/api/v1/places' : `/api/v1/places?search_term=${searchTerm}`
+        fetch(endpoint)
             .then(response => response.json())
             .then(data => {
                 setLoading(false)
                 setLoadedPlaces(data.places)
             })
-    }, [])
+    }, [searchTerm])
+
+    function onSearchTextChanged(event) {
+        setLoading(true)
+        setSearchTerm(event.target.value)
+    }
 
     const centeredStyle = { display: 'flex', alignItems: 'center', flexDirection: 'column' }
     const tableHeaderclassName = "px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-red-600 uppercase tracking-wider"
@@ -104,7 +111,7 @@ function PlacesList() {
         </div >
     )
 
-    return isLoading ? renderPlacesPage(loadingSection) : renderPlacesPage(dataSection)
+    return isLoading ? renderPlacesPage(loadingSection, onSearchTextChanged) : renderPlacesPage(dataSection, onSearchTextChanged)
 }
 
 const placesList = ReactDOM.createRoot(document.getElementById('page-places'));
