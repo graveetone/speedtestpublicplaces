@@ -62,6 +62,7 @@ function PlacesList() {
                             <tr>
                                 <th className={tableHeaderclassName}>Name</th>
                                 <th className={tableHeaderclassName}>City</th>
+                                <th className={tableHeaderclassName}>Address</th>
                                 <th className={tableHeaderclassName}>Recent Upload Speed</th>
                                 <th className={tableHeaderclassName}>Recent Upload Speed Units</th>
                                 <th className={tableHeaderclassName}>Number of measurements</th>
@@ -79,6 +80,11 @@ function PlacesList() {
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                             <p className="text-gray-900 whitespace-no-wrap">
                                                 {place.city}
+                                            </p>
+                                        </td>
+                                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p className="text-gray-900 whitespace-no-wrap">
+                                                {place.address}
                                             </p>
                                         </td>
                                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
