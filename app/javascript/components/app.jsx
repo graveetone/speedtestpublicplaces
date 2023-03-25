@@ -7,7 +7,6 @@ import {
 import React from 'react';
 import ReactDOM from "react-dom/client";
 
-
 // components
 import PlacesList from './places_list'
 import NewInternetSpeed from './new_internet_speed'
@@ -24,6 +23,7 @@ export default function App() {
                 <Routes>
                     <Route path='/' element={<PlacesList />} />
                     <Route path='/new-internet-speed' element={<NewInternetSpeed />} />
+                    <Route path='*' element={<div>NOT FOUND</div>} />
                 </Routes>
             </Router>
         </>
