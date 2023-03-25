@@ -2,6 +2,7 @@ import {
     BrowserRouter as Router,
     Routes,
     Route,
+    Link
 } from 'react-router-dom';
 
 import React from 'react';
@@ -14,11 +15,12 @@ import NewInternetSpeed from './new_internet_speed'
 export default function App() {
     return (
         <>
-            <h1 className='font-semibold text-8xl text-center'>
-                <span className="text-red-600">Public</span>
-                <span className="text-black">Internet</span>
-            </h1>
-
+            <a href="/">
+                <h1 className='font-semibold text-8xl text-center'>
+                    <span className="text-red-600">Public</span>
+                    <span className="text-black">Internet</span>
+                </h1>
+            </a>
             <Router>
                 <Routes>
                     <Route path='/' element={<PlacesList />} />
@@ -26,6 +28,8 @@ export default function App() {
                     <Route path='*' element={<div>NOT FOUND</div>} />
                 </Routes>
             </Router>
+            {/* <Link to=''> */}
+            {/* </Link> */}
         </>
     )
 }
