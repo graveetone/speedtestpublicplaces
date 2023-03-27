@@ -1,4 +1,4 @@
-class Api::V1::PlacesController < ApplicationController
+class Api::V1::PlacesController < Api::V1::BaseController
     def index
         places = if strong_params[:search_term]
             Place.search(strong_params[:search_term])
