@@ -1,5 +1,5 @@
 class Place < ApplicationRecord
-    has_many :internet_speeds
+    has_many :internet_speeds, dependent: :delete_all
 
     def most_recent_download_speed
         # assume that all the units are the same
