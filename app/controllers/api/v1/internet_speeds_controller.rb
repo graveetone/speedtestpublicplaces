@@ -1,6 +1,6 @@
 class Api::V1::InternetSpeedsController < Api::V1::BaseController
     def create
-        place = Place.create!(
+        place = Place.find_or_create_by(
             name: params[:place_name],
             address: params[:place_address],
             city: params[:place_city],
