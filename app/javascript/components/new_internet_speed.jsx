@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function NewInternetSpeed() {
+    const ENABLED_BUTTON = 'w-3/4 px-4 py-2 font-bold text-white bg-red-800 rounded-full hover:bg-black hover:text-white focus:outline-none focus:shadow-outline'
+    const DISABLED_BUTTON = 'cursor-not-allowed w-3/4 px-4 py-2 font-bold text-white bg-gray-500 rounded-full hover:bg-gray-500 hover:text-white focus:outline-none focus:shadow-outline'
     const [testInProgress, setTestInProgress] = useState(false)
     const [downloadSpeeds, setDownloadSpeeds] = useState([])
     const [latestSpeed, setLatestSpeed] = useState(0)
     const [placeName, setPlaceName] = useState('')
     const [placeCity, setPlaceCity] = useState('')
     const [placeAddress, setPlaceAddress] = useState('')
+    const [buttonClasses, setbuttonClasses] = useState(DISABLED_BUTTON)
     const navigate = useNavigate()
 
     const MAX_REQUESTS_NUMBER = 5
@@ -50,9 +53,11 @@ function NewInternetSpeed() {
         }
     }, [latestSpeed])
 
-    const placeFieldsFilled = [placeCity, placeAddress, placeName].every(fieldValue => fieldValue.length > 0)
+    const areFieldsFilled = [placeCity, placeAddress, placeName].every(fieldValue => fieldValue.length > 0)
+    useEffect(() => {
+        setbuttonClasses(areFieldsFilled ? ENABLED_BUTTON : DISABLED_BUTTON)
+    }, [placeAddress, placeCity, placeName])
 
-    const buttonClasses = `${placeFieldsFilled ? '' : 'cursor-not-allowed'} w-3/4 px-4 py-2 font-bold text-white bg-${placeFieldsFilled ? 'red' : 'gray'}-500 rounded-full hover:bg-${placeFieldsFilled ? 'black' : 'gray'}-500 hover:text-white focus:outline-none focus:shadow-outline`
     return (
         <>
             <div className="bg-white p-8 rounded-md w-full">
@@ -105,7 +110,7 @@ function NewInternetSpeed() {
                                 </div>
                                 <div className="mb-6 text-center">
                                     <button
-                                        disabled={!placeFieldsFilled}
+                                        disabled={!areFieldsFilled}
                                         className={buttonClasses}
                                         type="button"
                                         onClick={() => setTestInProgress(true)}
