@@ -50,7 +50,9 @@ function NewInternetSpeed() {
         }
     }, [latestSpeed])
 
+    const placeFieldsFilled = [placeCity, placeAddress, placeName].every(fieldValue => fieldValue.length > 0)
 
+    const buttonClasses = `${placeFieldsFilled ? '' : 'cursor-not-allowed'} w-3/4 px-4 py-2 font-bold text-white bg-${placeFieldsFilled ? 'red' : 'gray'}-500 rounded-full hover:bg-${placeFieldsFilled ? 'black' : 'gray'}-500 hover:text-white focus:outline-none focus:shadow-outline`
     return (
         <>
             <div className="bg-white p-8 rounded-md w-full">
@@ -103,7 +105,8 @@ function NewInternetSpeed() {
                                 </div>
                                 <div className="mb-6 text-center">
                                     <button
-                                        className="w-3/4 px-4 py-2 font-bold text-white bg-red-500 rounded-full hover:bg-black hover:text-white focus:outline-none focus:shadow-outline"
+                                        disabled={!placeFieldsFilled}
+                                        className={buttonClasses}
                                         type="button"
                                         onClick={() => setTestInProgress(true)}
                                     >
